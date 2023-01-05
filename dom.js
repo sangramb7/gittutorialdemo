@@ -1,24 +1,52 @@
-var header = document.getElementById('main-header');
+//parentElement
+var title = document.querySelector(".title");
 
-header.style.borderBottom = 'solid 2px black';
+var container = title.parentElement;
 
-var title = document.getElementsByClassName('title');
+container.style.backgroundColor = '#f3f3f3';
 
-title[0].style.fontWeight = 'bold';
-title[0].style.color = 'green';
+//lastElementChild
+var lastElementChild = container.lastElementChild;
 
-/* var items = document.getElementsByTagName('li');
+lastElementChild.style.fontWeight = 'bold';
 
-items[1].textContent = 'Hello 2';
-items[1].style.backgroundColor = 'yellow';
+//lastChild
+var lastChild = container.lastChild;
 
-for(var i=0; i<items.length; i++){
-    items[i].style.fontWeight = 'bold';
-}
+console.log(lastChild);
 
-items[2].style.backgroundColor = 'green'; */
+//firstElementChild
+container.firstElementChild.style.color = 'orange';
 
-var items = document.querySelectorAll('li');
+//firstChild
+console.log(container.firstChild);
 
-items[1].style.backgroundColor = 'green';
-items[2].style.visibility = 'hidden';
+//nextSibiling
+console.log(container.nextSibling);
+
+//nextElementSibiling
+title.nextElementSibling.nextElementSibling.style.color = 'blue';
+
+//previousSibiling
+console.log(lastElementChild.previousSibling);
+
+//previousElementSibiling
+lastElementChild.previousElementSibling.style.fontStyle = 'oblique';
+
+//createElement
+var div = document.createElement('div');
+div.id = 'subtitle';
+
+//setAttribute
+div.setAttribute('title','subtitle');
+
+//createTextNode
+var textNode = document.createTextNode('Shopping List');
+
+//appendChild
+div.appendChild(textNode);
+
+var h2 = document.querySelectorAll('h2');
+
+container.insertBefore(div,h2[1]);
+console.log(div);
