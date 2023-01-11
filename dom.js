@@ -15,13 +15,32 @@ function addItem(e){
 
   // Get input value
   var newItem = document.getElementById('item').value;
+  var newDescription = document.getElementById('description').value;
 
+  // Create new div element
+  var divItem = document.createElement('div');
+  var divDescription = document.createElement('div');
+  // Create new row div element
+  var divRow = document.createElement('div');
+  //Create new column div element
+  var divCol1 = document.createElement('div');
+  var divCol2 = document.createElement('div');
   // Create new li element
   var li = document.createElement('li');
   // Add class
+  divRow.className = 'row';
+  divCol1.className = 'col';
+  divCol2.className = 'col';
   li.className = 'list-group-item';
-  // Add text node with input value
-  li.appendChild(document.createTextNode(newItem));
+
+  divItem.appendChild(document.createTextNode(newItem));
+  divDescription.appendChild(document.createTextNode(newDescription));
+
+  divCol1.appendChild(divItem);
+  divCol1.appendChild(divDescription);
+
+  divRow.appendChild(divCol1);
+
 
   // Create Edit button element
   var editBtn = document.createElement('button');
@@ -42,8 +61,13 @@ function addItem(e){
   deleteBtn.appendChild(document.createTextNode('X'));
 
   // Append button to li
-  li.appendChild(editBtn);
-  li.appendChild(deleteBtn);
+  divCol2.appendChild(editBtn);
+  divCol2.appendChild(deleteBtn);
+
+  divRow.appendChild(divCol2);
+
+  // Add row div
+  li.appendChild(divRow);
 
   // Append li to list
   itemList.appendChild(li);
@@ -53,7 +77,7 @@ function addItem(e){
 function removeItem(e){
   if(e.target.classList.contains('delete')){
     if(confirm('Are You Sure?')){
-      var li = e.target.parentElement;
+      var li = e.target.parentElement.parentElement.parentElement;
       itemList.removeChild(li);
     }
   }
@@ -67,8 +91,9 @@ function filterItems(e){
   var items = itemList.getElementsByTagName('li');
   // Convert to an array
   Array.from(items).forEach(function(item){
-    var itemName = item.firstChild.textContent;
-    if(itemName.toLowerCase().indexOf(text)!=-1){
+    var itemName = item.firstElementChild.firstElementChild.firstElementChild.firstChild.textContent;
+    var itemDescription = item.firstElementChild.firstElementChild.lastElementChild.firstChild.textContent;
+    if( (itemName.toLowerCase().indexOf(text)!=-1) || (itemDescription.toLowerCase().indexOf(text)!=-1) ){
       item.style.display = 'block';
     } else {
       item.style.display = 'none';
